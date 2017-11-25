@@ -951,7 +951,7 @@ public class Synthesizer {
     List<Statement> statements = new ArrayList<>();
     statements.add(
         new Comment("Rules for sending destination routed packets to preoutIface stage"));
-    for (String hostname : _fibs.keySet()) {
+    for (String hostname : new TreeSet<>(_fibs.keySet())) {
       Configuration c = _configurations.get(hostname);
       c.getVrfs()
           .forEach(
