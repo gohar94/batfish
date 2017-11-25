@@ -12,6 +12,8 @@ import com.microsoft.z3.Params;
 import com.microsoft.z3.Solver;
 import com.microsoft.z3.Status;
 import com.microsoft.z3.Z3Exception;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -169,7 +171,9 @@ public final class NodJob extends BatfishJob<NodJobResult> {
       for (BoolExpr rule : program.getRules()) {
         fix.addRule(rule, null);
       }
+      Files.write(Paths.get("/tmp/fix"), fix.toString().getBytes());
       for (BoolExpr query : program.getQueries()) {
+        Files.write(Paths.get("/tmp/query"), query.toString().getBytes());
         Status status = fix.query(query);
         switch (status) {
           case SATISFIABLE:
@@ -183,6 +187,7 @@ public final class NodJob extends BatfishJob<NodJobResult> {
         }
       }
       Expr answer = fix.getAnswer();
+      Files.write(Paths.get("/tmp/answer"), answer.toString().getBytes());
       BoolExpr solverInput;
       if (answer.getArgs().length > 0) {
         List<Expr> reversedVarList = new ArrayList<>();
