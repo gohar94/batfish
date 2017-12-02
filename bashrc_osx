@@ -1,0 +1,7 @@
+export LB_HOME=/Users/goharirfan/Downloads/logicblox-x86_64-darwin-4.1.9-1beb1a503994
+. /Users/goharirfan/Downloads/logicblox-x86_64-darwin-4.1.9-1beb1a503994/etc/profile.d/logicblox.sh
+alias rlb='killall -9 lb-server; killall -9 lb-pager; lb services stop && rm -rf ~/lb_deployment/* && LB_CONNECTBLOX_ENABLE_ADMIN=1 lb services start'
+alias slb='LB_CONNECTBLOX_ENABLE_ADMIN=1 lb services start'
+alias klb='killall -9 lb-server; killall -9 lb-pager; lb services stop; rm -rf ~/lb_deployment/*'
+. /Users/goharirfan/Desktop/batfish/tools/batfish_functions.sh
+export BATFISH_COMMON_ARGS='-lbhost localhost -lbport 55179 -lbwebport 8080 -lbwebadminport 55183 -logicdir /Users/goharirfan/Desktop/batfish/projects/batfish/bin/batfish/logic'
