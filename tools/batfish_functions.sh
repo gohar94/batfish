@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export BATFISH_SOURCED_SCRIPT=$BASH_SOURCE
-export BATFISH_ROOT=$(readlink -f $(dirname $BATFISH_SOURCED_SCRIPT)/..)
+export BATFISH_ROOT=/Users/goharirfan/Desktop/batfish
 export BATFISH_PATH=$BATFISH_ROOT/projects/batfish
 export BATFISH_TEST_RIG_PATH=$BATFISH_ROOT/test_rigs
 export BATFISH=$BATFISH_PATH/batfish
@@ -10,7 +10,7 @@ export BATFISH_Z3_DATALOG="$BATFISH_Z3 fixedpoint.engine=datalog fixedpoint.defa
 
 batfish() {
    # if cygwin, shift and replace each parameter
-   if [ "Cygwin" = "$(uname -o)" ]; then
+   if [ "Cygwin" = "$(uname -s)" ]; then
       local NUMARGS=$#
       local IGNORE_NEXT_ARG=no;
       for i in $(seq 1 $NUMARGS); do
@@ -367,7 +367,7 @@ batfish_build() {
    local RESTORE_FILE='cygwin-symlink-restore-data'
    local OLD_PWD=$(pwd)
    cd $BATFISH_PATH
-   if [ "Cygwin" = "$(uname -o)" -a ! -e "$RESTORE_FILE" ]; then
+   if [ "Cygwin" = "$(uname -s)" -a ! -e "$RESTORE_FILE" ]; then
       echo "Replacing symlinks (Cygwin workaround)"
       ./cygwin-replace-symlinks
    fi
