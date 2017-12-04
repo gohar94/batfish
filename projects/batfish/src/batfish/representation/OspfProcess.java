@@ -2,10 +2,14 @@ package batfish.representation;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class OspfProcess implements Serializable {
 
@@ -57,6 +61,18 @@ public class OspfProcess implements Serializable {
 
    public void setRouterId(String id) {
       _routerId = id;
+   }
+
+   public JSONObject getJSON() {
+       JSONObject jsonObject = new JSONObject();
+       jsonObject.put("routerId", _routerId == null ? "null" : _routerId);
+       Iterator<GeneratedRoute> itr = _generatedRoutes.iterator();
+       JSONArray jGeneratedRoutes = new JSONArray();
+       while (itr.hasNext()) {
+           jGeneratedRoutes.add((Object)itr.next().getJSON());
+       }
+       jsonObject.put("generatedRoutes", jGeneratedRoutes);
+       return jsonObject;
    }
 
 }

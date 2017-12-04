@@ -2,6 +2,9 @@ package batfish.representation;
 
 import java.util.Set;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 public class GeneratedRoute extends Route {
 
    private static final long serialVersionUID = 1L;
@@ -47,6 +50,17 @@ public class GeneratedRoute extends Route {
 
    public void setAsPath(AsPath asPath) {
       _asPath = asPath;
+   }
+
+   public JSONObject getJSON() {
+        JSONObject jsonObject = new JSONObject();
+        // Manually putting keys from parent class for now, may need to add more
+        jsonObject.put("prefix", _prefix.toString());
+        jsonObject.put("prefixLength", _prefixLength);
+        jsonObject.put("administrativeCost", _administrativeCost);
+        jsonObject.put("AsPath", _asPath.getIFString(" "));
+        jsonObject.put("generationPolicies", "TO BE IMPLEMENTED");
+        return jsonObject;
    }
 
 }

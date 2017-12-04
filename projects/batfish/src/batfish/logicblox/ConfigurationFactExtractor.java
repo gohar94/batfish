@@ -1,5 +1,6 @@
 package batfish.logicblox;
 
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,9 @@ import batfish.representation.SwitchportEncapsulationType;
 import batfish.util.SubRange;
 import batfish.util.Util;
 import batfish.z3.Synthesizer;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class ConfigurationFactExtractor {
 
@@ -262,6 +266,7 @@ public class ConfigurationFactExtractor {
       writeBgpNeighborGeneratedRoutes();
       writeGeneratedRoutes();
       writeVlanInterface();
+      writeToJson();
    }
 
    private void writeGeneratedRoutes() {
@@ -473,6 +478,42 @@ public class ConfigurationFactExtractor {
             }
          }
       }
+   }
+
+   public void writeToJson() {
+      String hostname = _configuration.getHostname();
+      OspfProcess proc = _configuration.getOspfProcess();
+      JSONObject jsonObject = new JSONObject();
+      jsonObject.put("hostname", hostname);
+      String filename = hostname + ".json";
+
+      if (proc != null) {
+         JSONObject jProc = proc.getJSON();
+         JSONArray jAreas = new JSONArray();
+         for (OspfArea area : proc.getAreas().values()) {
+            JSONObject jArea = new JSONObject();
+            jArea.put("areaNumber", area.getNumber());
+            JSONArray jInterfaces = new JSONArray();
+            for (Interface i : area.getInterfaces()) {
+               jInterfaces.add((Object)i.getJSON());
+            }
+            jArea.put("interfaces", (Object)jInterfaces);
+            jAreas.add((Object)jArea);
+         }
+         jProc.put("areas", (Object)jAreas);
+         jsonObject.put("OspfProcess", (Object)jProc);
+      }
+
+      // writing the JSONObject into a file(info.json)
+	  try {
+	     FileWriter fileWriter = new FileWriter(filename);
+         String jsonFormattedString = jsonObject.toJSONString();
+		 fileWriter.write(jsonFormattedString);
+		 fileWriter.flush();
+	  } catch (Exception e) {
+		 e.printStackTrace();
+	  }
+	  System.out.println("Written JSON Object to file " + filename);
    }
 
    private void writeOspfInterfaces() {

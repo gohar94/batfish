@@ -9,6 +9,9 @@ import batfish.util.NamedStructure;
 import batfish.util.SubRange;
 import batfish.util.Util;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 public class Interface extends NamedStructure {
 
    private static final long serialVersionUID = 1L;
@@ -251,5 +254,16 @@ public class Interface extends NamedStructure {
          SwitchportEncapsulationType encapsulation) {
       _switchportTrunkEncapsulation = encapsulation;
    }
+
+   public JSONObject getJSON() {
+       JSONObject jsonObject = new JSONObject();
+       jsonObject.put("name", _name);
+       jsonObject.put("Ip", _ip.toString());
+       jsonObject.put("OspfCost", _ospfCost);
+       jsonObject.put("OspfDeadInterval", _ospfDeadInterval);
+       jsonObject.put("OspfHelloMultiplier", _ospfHelloMultiplier);
+       return jsonObject;
+   }
+
 
 }
