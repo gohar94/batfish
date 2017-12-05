@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export BATFISH_SOURCED_SCRIPT=$BASH_SOURCE
-export BATFISH_ROOT=/Users/goharirfan/Desktop/batfish
+export BATFISH_ROOT=/Users/goharirfan/Desktop/plankton-engineering/batfish
 export BATFISH_PATH=$BATFISH_ROOT/projects/batfish
 export BATFISH_TEST_RIG_PATH=$BATFISH_ROOT/test_rigs
 export BATFISH=$BATFISH_PATH/batfish

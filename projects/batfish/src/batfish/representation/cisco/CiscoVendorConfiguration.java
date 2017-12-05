@@ -231,8 +231,12 @@ public class CiscoVendorConfiguration extends CiscoConfiguration implements
             updateSource = processRouterId.toString();
          }
          else {
-            Ip sourceIp = c.getInterfaces().get(updateSourceInterface).getIP();
-            updateSource = sourceIp.toString();
+             try {
+                Ip sourceIp = c.getInterfaces().get(updateSourceInterface).getIP();
+                updateSource = sourceIp.toString();
+             } catch (Exception e) {
+                 System.out.println("Err, continuing");
+             }
          }
 
          PolicyMap newInboundPolicyMap = null;

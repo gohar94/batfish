@@ -65,7 +65,8 @@ public class OspfProcess implements Serializable {
 
    public JSONObject getJSON() {
        JSONObject jsonObject = new JSONObject();
-       jsonObject.put("routerId", _routerId == null ? "null" : _routerId);
+       jsonObject.put("routerId", _routerId);
+       jsonObject.put("referenceBandwidth", _referenceBandwidth);
        Iterator<GeneratedRoute> itr = _generatedRoutes.iterator();
        JSONArray jGeneratedRoutes = new JSONArray();
        while (itr.hasNext()) {
