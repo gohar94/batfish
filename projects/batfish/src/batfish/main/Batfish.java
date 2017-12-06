@@ -1241,6 +1241,7 @@ public class Batfish implements AutoCloseable {
       topology = extractor.getTopology();
       TopologyFactExtractor tfe = new TopologyFactExtractor(topology);
       tfe.writeFacts(factBins);
+      tfe.writeToJson();
    }
 
    private Map<String, VendorConfiguration> parseVendorConfigurations(
@@ -1772,6 +1773,7 @@ public class Batfish implements AutoCloseable {
       new File(outputPath).mkdirs();
       for (String name : configurations.keySet()) {
          Configuration c = configurations.get(name);
+         System.out.println(c);
          Path currentOutputPath = Paths.get(outputPath, name);
          print(2,
                "Serializing: \"" + name + "\" ==> \""
@@ -1787,7 +1789,7 @@ public class Batfish implements AutoCloseable {
       ObjectOutputStream oos;
       try {
          fos = new FileOutputStream(outputFile);
-         if (_settings.getSerializeToText()) {
+         if (true) {
             XStream xstream = new XStream(new DomDriver("UTF-8"));
             oos = xstream.createObjectOutputStream(fos);
          }

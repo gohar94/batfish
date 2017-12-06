@@ -256,13 +256,13 @@ public class Interface extends NamedStructure {
    }
 
    public JSONObject getJSON() {
-       JSONObject jsonObject = new JSONObject();
-       jsonObject.put("name", _name);
-       jsonObject.put("Ip", _ip.toString());
-       jsonObject.put("OspfCost", _ospfCost);
-       jsonObject.put("OspfDeadInterval", _ospfDeadInterval);
-       jsonObject.put("OspfHelloMultiplier", _ospfHelloMultiplier);
-       return jsonObject;
+         JSONObject jsonObject = new JSONObject();
+         jsonObject.put("name", _name);
+         jsonObject.put("Ip", _ip.toString());
+         jsonObject.put("OspfCost", _ospfCost);
+         jsonObject.put("OspfDeadInterval", _ospfDeadInterval);
+         jsonObject.put("OspfHelloMultiplier", _ospfHelloMultiplier);
+         return jsonObject;
    }
 
 

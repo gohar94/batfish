@@ -73,6 +73,12 @@ public class OspfProcess implements Serializable {
            jGeneratedRoutes.add((Object)itr.next().getJSON());
        }
        jsonObject.put("generatedRoutes", jGeneratedRoutes);
+       Iterator<PolicyMap> itr2 = _outboundPolicyMaps.iterator();
+       JSONArray jOutboundPolicyMaps = new JSONArray();
+       while (itr2.hasNext()) {
+           jOutboundPolicyMaps.add((Object)itr2.next().getJSON());
+       }
+       jsonObject.put("outboundPolicyMaps", jOutboundPolicyMaps);
        return jsonObject;
    }
 

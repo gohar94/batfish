@@ -495,7 +495,19 @@ public class ConfigurationFactExtractor {
             jArea.put("areaNumber", area.getNumber());
             JSONArray jInterfaces = new JSONArray();
             for (Interface i : area.getInterfaces()) {
-               jInterfaces.add((Object)i.getJSON());
+               Integer ospfCost = i.getOspfCost();
+               if (ospfCost == null) {
+                  if (i.getName().startsWith("Vlan")) {
+                     // TODO: fix for non-cisco
+                     ospfCost = DEFAULT_CISCO_VLAN_OSPF_COST;
+                  } else {
+                     ospfCost = Math.max((int) (proc.getReferenceBandwidth() 
+                        / i.getBandwidth()), 1);
+                  }
+               }
+               JSONObject tempIntf = i.getJSON();
+               tempIntf.put("OspfCost", ospfCost);
+               jInterfaces.add((Object)tempIntf);
             }
             jArea.put("interfaces", (Object)jInterfaces);
             jAreas.add((Object)jArea);
@@ -504,7 +516,6 @@ public class ConfigurationFactExtractor {
          jsonObject.put("OspfProcess", (Object)jProc);
       }
 
-      // writing the JSONObject into a file(info.json)
 	  try {
 	     FileWriter fileWriter = new FileWriter(filename);
          String jsonFormattedString = jsonObject.toJSONString();

@@ -2,6 +2,8 @@ package batfish.representation;
 
 import java.io.Serializable;
 
+import org.json.simple.JSONObject;
+
 public class Edge implements Serializable {
 
    private static final long serialVersionUID = 1L;
@@ -42,6 +44,15 @@ public class Edge implements Serializable {
    @Override
    public String toString() {
       return _node1 + ", " + _int1 + ", " + _node2 + ", " + _int2;
+   }
+
+   public JSONObject getJSON() {
+       JSONObject jsonObject = new JSONObject();
+       jsonObject.put("node1", _node1);
+       jsonObject.put("node2", _node2);
+       jsonObject.put("int1", _int1);
+       jsonObject.put("int2", _int2);
+       return jsonObject;
    }
 
 }

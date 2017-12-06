@@ -2,6 +2,8 @@ package batfish.representation;
 
 import java.io.Serializable;
 import java.util.List;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class PolicyMap implements Serializable {
 
@@ -21,6 +23,13 @@ public class PolicyMap implements Serializable {
 
    public String getMapName() {
       return _mapName;
+   }
+
+   public JSONObject getJSON() {
+      JSONObject jsonObject = new JSONObject();
+      jsonObject.put("name", _mapName);
+      
+      return jsonObject;
    }
 
 }
